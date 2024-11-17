@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 206996748}
   - component: {fileID: 206996747}
-  - component: {fileID: 206996749}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -207,19 +206,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &206996749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206996745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aac8b7662062f7f4ea3b1a724cf21b33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bullet: {fileID: 1748718195711469812, guid: c23307b786272df48831547c66577ed4, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
