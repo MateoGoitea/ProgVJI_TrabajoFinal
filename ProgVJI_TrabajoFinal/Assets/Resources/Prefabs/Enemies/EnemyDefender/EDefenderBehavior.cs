@@ -7,17 +7,16 @@ public class EDefenderBehavior : MonoBehaviour
     private Transform _player;//transform del player a perseguir
     private Vector3 _lookPosition;//direccion a la que mira el enemigo
      private float _playerMaxDistance;//maxima distancia a la que detectara al jugador
-    //private GameObject _bullet;
-    [SerializeField ]private GameObject _bullet;//objeto balas a disparar
+    private GameObject _bullet;//objeto balas a disparar
     private bool _shooting;//controlador si el enemigo dispara o no
     void Start()
     {
-        //_player= Resources.Load<GameObject>(Player/player);
+        //_player= Resources.Load<GameObject>(Player/player);// activar cuando exista un prefab del player
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         _playerMaxDistance = 20f;
 
-        //_bullet= Resources.Load<GameObject>(Enemies/EnemyBullet);
+        _bullet= Resources.Load<GameObject>("Prefabs/Enemies/EnemyBullet");
 
         StartCoroutine("Shoot", 0f);
     }
