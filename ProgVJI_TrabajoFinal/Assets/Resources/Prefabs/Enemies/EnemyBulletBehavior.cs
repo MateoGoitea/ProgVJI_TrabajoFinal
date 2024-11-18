@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemyBulletBehavior : MonoBehaviour
 {
     private float _speed;
-    void Start()
+    private float _timer;
+    void OnEnable()
     {
         _speed = 15f;
+        _timer = 0f;
     }
 
     void Update()
@@ -16,12 +18,16 @@ public class EnemyBulletBehavior : MonoBehaviour
     }
     public void MoveBullet(){
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-        Destroy(gameObject,2f);
+        if(_timer>=200){
+            gameObject.SetActive(false);
+        }
+        _timer++;
     }
+        
     
     private void OnTriggerEnter(Collider other){
         if (other.gameObject.CompareTag("Player")){
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

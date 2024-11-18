@@ -7,7 +7,6 @@ public class EDefenderBehavior : MonoBehaviour
     private Transform _player;//transform del player a perseguir
     private Vector3 _lookPosition;//direccion a la que mira el enemigo
      private float _playerMaxDistance;//maxima distancia a la que detectara al jugador
-    private GameObject _bullet;//objeto balas a disparar
     private bool _shooting;//controlador si el enemigo dispara o no
     void Start()
     {
@@ -15,8 +14,6 @@ public class EDefenderBehavior : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         _playerMaxDistance = 20f;
-
-        _bullet= Resources.Load<GameObject>("Prefabs/Enemies/EnemyBullet");
 
         StartCoroutine("Shoot", 0f);
     }
@@ -51,7 +48,9 @@ public class EDefenderBehavior : MonoBehaviour
         while (true){
             if (_shooting == true){
                 for(int x=0; x<=5;x++){
-                    Instantiate(_bullet, transform.position, transform.rotation);
+                    GameObject _bullet = EnemyBulletPool.Instance.RequestBullet();
+                    _bullet.transform.position = transform.position;
+                    _bullet.transform.rotation = transform.rotation;
                     yield return new WaitForSeconds(0.3f);
                 }
             }  

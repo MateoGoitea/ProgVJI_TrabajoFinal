@@ -10,7 +10,6 @@ public class ETrackerBehavior : MonoBehaviour
     private Vector3 _lookPosition;//direccion a la que mira el enemigo
     private float _speed;//velocidad de movimiento
     private float _playerMaxDistance;//maxima distancia a la que alcanzara al jugador
-    private GameObject _bullet;//objeto balas a disparar
     private bool _shooting;//controlador si el enemigo dispara o no
     void Start()
     {
@@ -19,8 +18,6 @@ public class ETrackerBehavior : MonoBehaviour
         _speed = 5f;
 
         _playerMaxDistance = 10;
-
-        _bullet= Resources.Load<GameObject>("Prefabs/Enemies/EnemyBullet");
 
         StartCoroutine("Shoot", 0f);
     }
@@ -60,7 +57,9 @@ public class ETrackerBehavior : MonoBehaviour
         while (true){
             if (_shooting == true){
                 for(int x=0; x<=5;x++){
-                    Instantiate(_bullet, transform.position, transform.rotation);
+                    GameObject _bullet = EnemyBulletPool.Instance.RequestBullet();
+                    _bullet.transform.position = transform.position;
+                    _bullet.transform.rotation = transform.rotation;
                     yield return new WaitForSeconds(0.2f);
                 }
             }  
