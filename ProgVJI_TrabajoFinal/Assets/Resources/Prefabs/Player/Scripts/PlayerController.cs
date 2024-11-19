@@ -28,7 +28,5 @@ public class PlayerController : MonoBehaviour
         {
             command.Execute();
         }
-
-
     }
 }
