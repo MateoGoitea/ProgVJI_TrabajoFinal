@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,15 @@ public class PlayerBulletBehavior : MonoBehaviour
     private Vector3 _direction;
     private float _lifeTime;
     private float _speed;
+    private float _damage;
 
     private float _timer;
 
     private void OnEnable()//lo cambie a onEnable para reiniciar el timer cuando la bala vuelva a estar disponible
     {
         _lifeTime = 5f;
-        _speed = 10f;
+        _speed = 15f;
+        _damage = 1f;
 
         _timer = 0f;
     }
@@ -61,4 +64,12 @@ public class PlayerBulletBehavior : MonoBehaviour
         PlayerBulletPool.Instance.ReturnBullet(gameObject);
     }
     */
+    private void OnTriggerEnter2D(Collider2D other){
+        String _tag = other.gameObject.tag;
+        if (_tag != "Player" && _tag != "EnemyBullet"){
+            gameObject.SetActive(false);
+        }      
+    }
+
+    public float Damage { get => _damage; set => _damage = value; }
 }
