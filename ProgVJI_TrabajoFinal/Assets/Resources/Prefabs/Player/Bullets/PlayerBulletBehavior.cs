@@ -5,24 +5,34 @@ using UnityEngine;
 public class PlayerBulletBehavior : MonoBehaviour
 {
     private Vector3 _direction;
+    private Rigidbody2D _rb;
     private float _lifeTime;
     private float _speed;
 
+
     private void Start()
     {
+        _rb = GetComponent<Rigidbody2D>();
         _lifeTime = 5f;
-        _speed = 6f;
+        _speed = 20f;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        transform.position += _direction * _speed * Time.deltaTime;
+        if (_rb == null) Debug.Log("añade el rigidbody a la bala");
+
+        if (_rb != null && _direction != Vector3.zero) 
+        {
+            Debug.Log("la bala se mueve");
+            _rb.MovePosition(transform.position + _direction * _speed * Time.deltaTime);
+        }
     }
 
 
     public void SetDirection(Vector3 newDirection)
     {
         this._direction = newDirection.normalized;
+        Debug.Log("direction calculada" + newDirection);
     }
 
     private void OnEnable()

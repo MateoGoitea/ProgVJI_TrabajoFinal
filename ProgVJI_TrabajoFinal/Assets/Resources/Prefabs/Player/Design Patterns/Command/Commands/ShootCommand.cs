@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class ShootCommand : ICommand
 {
-    private Transform _weaponPosition;
-    private Ray _shootingLine;
-    private bool _input;
+    private Transform _weaponPosition;// pa la posición del arma desde donde se dispara el rayo
+    private bool _input; //pa  el click del mouse
 
     public ShootCommand(Transform weaponPosition)
     {
@@ -28,23 +27,30 @@ public class ShootCommand : ICommand
     {
         if (_weaponPosition == null) return; //retornar si no se asigno el arma  
 
+        Debug.Log("esta disparando");
+        
         //pa que el rayo sea desde la camara hacia el cursor
-        _shootingLine = Camera.main.ScreenPointToRay(Input.mousePosition); 
-         
-        if(Physics.Raycast(_shootingLine, out RaycastHit hit))
-        {
-            Vector3 targetPosition = hit.point; //punto donde golpea el rayo
+        Ray shootingLine = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //pa dibujar el rayo
+        Debug.DrawRay(shootingLine.origin, shootingLine.direction * 100f, Color.red);
+
+        RaycastHit hit;
+
+        Physics.Raycast(shootingLine, out hit);
+
+        Vector3 targetPosition = hit.point; //punto donde golpea el rayo
              
-            Vector3 direction = (targetPosition - _weaponPosition.position).normalized; //direccion desde la posicion del arma
+        Vector3 direction = (targetPosition + _weaponPosition.position).normalized; //direccion desde la posicion del arma
 
-            if (PlayerBulletPool.Instance != null) //asegurarse de que exista la instancia de bullet pool
-            {
-                //obtener la bala del pool
-                GameObject bullet = PlayerBulletPool.Instance.GetBullet(_weaponPosition.position,Quaternion.LookRotation(direction));
+        if (PlayerBulletPool.Instance != null) //asegurarse de que exista la instancia de bullet pool
+        {
+            //obtener la bala del pool
+            GameObject bullet = PlayerBulletPool.Instance.GetBullet(_weaponPosition.position,Quaternion.LookRotation(targetPosition)); 
 
-                //pqasar la direccion a la bala
-                bullet.GetComponent<PlayerBulletBehavior>().SetDirection(direction);
-            }
+             //pasar la direccion a la bala
+             bullet.GetComponent<PlayerBulletBehavior>().SetDirection(direction);
         }
+        
     }
 }

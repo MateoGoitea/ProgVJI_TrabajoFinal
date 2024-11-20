@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _playerMovement = GetComponentInParent<PlayerMovement>();
-        _weaponPosition = GetComponentInChildren<Transform>();
+        _weaponPosition = GameObject.FindWithTag("Weapon").GetComponent<Transform>();
         _commands = new List<ICommand>();
     }
 
