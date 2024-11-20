@@ -8,7 +8,7 @@ public class EnemyBulletBehavior : MonoBehaviour
     private float _timer;
     void OnEnable()
     {
-        _speed = 15f;
+        _speed = 10f;
         _timer = 0f;
     }
 

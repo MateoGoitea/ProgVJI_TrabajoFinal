@@ -8,18 +8,31 @@ public class PlayerBulletBehavior : MonoBehaviour
     private float _lifeTime;
     private float _speed;
 
-    private void Start()
+    private float _timer;
+
+    private void OnEnable()//lo cambie a onEnable para reiniciar el timer cuando la bala vuelva a estar disponible
     {
         _lifeTime = 5f;
-        _speed = 6f;
+        _speed = 10f;
+
+        _timer = 0f;
     }
 
     public void Update()
     {
-        transform.position += _direction * _speed * Time.deltaTime;
+        //!!!!!
+        //no se mueve al aparecer la bala, se le envia la direccion pero no pasa nada
+        //transform.position += _direction * _speed * Time.deltaTime;
+
+        //estoy usando un timer para regresar las balas al pool pq tampoco estaba funcionando el invoke
+        transform.Translate(Vector3.up * _speed * Time.deltaTime);
+        if(_timer>=200){
+            gameObject.SetActive(false);
+        }
+        _timer++;
     }
 
-
+/*
     public void SetDirection(Vector3 newDirection)
     {
         this._direction = newDirection.normalized;
@@ -45,6 +58,7 @@ public class PlayerBulletBehavior : MonoBehaviour
     {
         CancelInvoke();//cancelar cualquier otra invocacion pa que no genere errores
 
-        PlayerBulletPool.Instance.ReturmBullet(gameObject);
+        PlayerBulletPool.Instance.ReturnBullet(gameObject);
     }
+    */
 }

@@ -51,7 +51,7 @@ public class EDefenderBehavior : MonoBehaviour
                     GameObject _bullet = EnemyBulletPool.Instance.RequestBullet();
                     _bullet.transform.position = transform.position;
                     _bullet.transform.rotation = transform.rotation;
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForSeconds(0.5f);
                 }
             }  
         yield return null;    
