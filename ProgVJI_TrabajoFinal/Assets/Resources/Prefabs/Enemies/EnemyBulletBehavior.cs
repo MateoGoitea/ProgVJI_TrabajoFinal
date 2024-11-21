@@ -8,7 +8,7 @@ public class EnemyBulletBehavior : MonoBehaviour
     private float _timer;
     void OnEnable()
     {
-        _speed = 15f;
+        _speed = 10f;
         _timer = 0f;
     }
 
@@ -18,14 +18,14 @@ public class EnemyBulletBehavior : MonoBehaviour
     }
     public void MoveBullet(){
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-        if(_timer>=200){
+        if(_timer>=500){
             gameObject.SetActive(false);
         }
         _timer++;
     }
         
     
-    private void OnTriggerEnter(Collider other){
+    private void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.CompareTag("Player")){
             gameObject.SetActive(false);
         }

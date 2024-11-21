@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PlayerBulletBehavior : MonoBehaviour
     private Rigidbody2D _rb;
     private float _lifeTime;
     private float _speed;
+    private float _damage;
+
 
 
     private void Start()
@@ -15,11 +18,13 @@ public class PlayerBulletBehavior : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _lifeTime = 5f;
         _speed = 20f;
+        _damage = 1f;
+
     }
 
     public void FixedUpdate()
     {
-        if (_rb == null) Debug.Log("añade el rigidbody a la bala");
+        if (_rb == null) Debug.Log("aï¿½ade el rigidbody a la bala");
 
         if (_rb != null && _direction != Vector3.zero) 
         {
@@ -27,7 +32,6 @@ public class PlayerBulletBehavior : MonoBehaviour
             _rb.velocity = _direction * _speed;
         }
     }
-
 
     public void SetDirection(Vector3 newDirection)
     {
@@ -55,6 +59,15 @@ public class PlayerBulletBehavior : MonoBehaviour
     {
         CancelInvoke();//cancelar cualquier otra invocacion pa que no genere errores
 
-        PlayerBulletPool.Instance.ReturmBullet(gameObject);
+        PlayerBulletPool.Instance.ReturnBullet(gameObject);
     }
+    
+    private void OnTriggerEnter2D(Collider2D other){
+        String _tag = other.gameObject.tag;
+        if (_tag != "Player" && _tag != "EnemyBullet"){
+            gameObject.SetActive(false);
+        }      
+    }
+
+    public float Damage { get => _damage; set => _damage = value; }
 }

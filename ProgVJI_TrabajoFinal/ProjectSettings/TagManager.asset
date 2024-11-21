@@ -6,6 +6,10 @@ TagManager:
   tags:
   - BasePlayer
   - Weapon
+  - PlayerBullet
+  - EnemyBullet
+  - BaseEnemy
+  - Enemy
   layers:
   - Default
   - TransparentFX

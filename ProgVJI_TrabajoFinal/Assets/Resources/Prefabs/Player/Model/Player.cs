@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public class Player
 {
-    private float _velocity = 5f;
+    private float _velocity = 7f;
     private float _acceleration = 10f;
 
     public float Velocity { get => _velocity; set => _velocity = value; }

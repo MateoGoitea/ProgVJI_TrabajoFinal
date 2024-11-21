@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShootCommand : ICommand
 {
-    private Transform _weaponPosition;// pa la posición del arma desde donde se dispara el rayo
+    private Transform _weaponPosition;// pa la posiciï¿½n del arma desde donde se dispara el rayo
     private bool _input; //pa  el click del mouse
     private Camera _camera; //se bugeaba si le ponia directo la main camera
 
@@ -50,7 +50,6 @@ public class ShootCommand : ICommand
 
              //pasar la direccion a la bala
              bullet.GetComponent<PlayerBulletBehavior>().SetDirection(direction);
-        }
-        
+        }  
     }
 }

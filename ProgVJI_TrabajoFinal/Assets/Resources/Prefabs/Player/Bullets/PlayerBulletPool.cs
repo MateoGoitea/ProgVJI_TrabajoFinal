@@ -7,7 +7,7 @@ public class PlayerBulletPool : MonoBehaviour
 {
     private GameObject _bullet;
     private List<GameObject> _bulletList;
-    private int _poolSize; //pa el tamaño inicial de la lista de balas
+    private int _poolSize; //pa el tamano inicial de la lista de balas
 
     public static PlayerBulletPool Instance { get; private set;  }//pa que la clase sea accesible desde otros scripts
 
@@ -45,7 +45,8 @@ public class PlayerBulletPool : MonoBehaviour
 
             _newBullet.SetActive(false); //desactivar inicialmente
 
-            _bulletList.Add(_newBullet); //añadir las balas a la lista
+            _bulletList.Add(_newBullet); //aï¿½adir las balas a la lista
+            _newBullet.transform.parent = transform;
 
             _newBullet.transform.parent = transform;
 
@@ -66,16 +67,21 @@ public class PlayerBulletPool : MonoBehaviour
                 return bullet;
             }
         }
-        //si no hay balas disponibles entonces las añade
+
+        //si no hay balas disponibles entonces las aï¿½ade
         GameObject newBullet = Instantiate(_bullet, newPosition,newRotation);
+
         newBullet.SetActive(true);
         _bulletList.Add(newBullet);
+        newBullet.transform.parent = transform;
+        
 
         return newBullet;
     }
 
-    public void ReturmBullet(GameObject bullet) //metodo para debolver la bala al pool
+    public void ReturnBullet(GameObject bullet) //metodo para debolver la bala al pool
     {
         bullet.SetActive(false);
     }
+
 }
