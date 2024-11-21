@@ -28,7 +28,6 @@ public class PlayerBulletBehavior : MonoBehaviour
 
         if (_rb != null && _direction != Vector3.zero) 
         {
-            Debug.Log("la bala se mueve");
             _rb.velocity = _direction * _speed;
         }
     }
@@ -36,7 +35,6 @@ public class PlayerBulletBehavior : MonoBehaviour
     public void SetDirection(Vector3 newDirection)
     {
         this._direction = newDirection.normalized;
-        Debug.Log("direction calculada" + newDirection);
     }
 
     private void OnEnable()
