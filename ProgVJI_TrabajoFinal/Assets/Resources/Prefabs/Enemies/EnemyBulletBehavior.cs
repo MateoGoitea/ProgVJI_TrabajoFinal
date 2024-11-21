@@ -6,10 +6,12 @@ public class EnemyBulletBehavior : MonoBehaviour
 {
     private float _speed;
     private float _timer;
+    private float _damage;
     void OnEnable()
     {
         _speed = 10f;
         _timer = 0f;
+        _damage = 1f;
     }
 
     void Update()
@@ -30,4 +32,6 @@ public class EnemyBulletBehavior : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public float Damage { get => _damage; set => _damage = value; }
 }
