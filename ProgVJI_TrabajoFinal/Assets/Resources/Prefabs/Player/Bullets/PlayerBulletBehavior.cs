@@ -24,7 +24,7 @@ public class PlayerBulletBehavior : MonoBehaviour
         if (_rb != null && _direction != Vector3.zero) 
         {
             Debug.Log("la bala se mueve");
-            _rb.MovePosition(transform.position + _direction * _speed * Time.deltaTime);
+            _rb.velocity = _direction * _speed;
         }
     }
 
