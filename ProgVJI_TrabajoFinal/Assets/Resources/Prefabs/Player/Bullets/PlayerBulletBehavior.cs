@@ -6,39 +6,37 @@ using UnityEngine;
 public class PlayerBulletBehavior : MonoBehaviour
 {
     private Vector3 _direction;
+    private Rigidbody2D _rb;
     private float _lifeTime;
     private float _speed;
     private float _damage;
 
-    private float _timer;
 
-    private void OnEnable()//lo cambie a onEnable para reiniciar el timer cuando la bala vuelva a estar disponible
+
+    private void Start()
     {
+        _rb = GetComponent<Rigidbody2D>();
         _lifeTime = 5f;
-        _speed = 15f;
+        _speed = 20f;
         _damage = 1f;
 
-        _timer = 0f;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        //!!!!!
-        //no se mueve al aparecer la bala, se le envia la direccion pero no pasa nada
-        //transform.position += _direction * _speed * Time.deltaTime;
+        if (_rb == null) Debug.Log("a�ade el rigidbody a la bala");
 
-        //estoy usando un timer para regresar las balas al pool pq tampoco estaba funcionando el invoke
-        transform.Translate(Vector3.up * _speed * Time.deltaTime);
-        if(_timer>=200){
-            gameObject.SetActive(false);
+        if (_rb != null && _direction != Vector3.zero) 
+        {
+            Debug.Log("la bala se mueve");
+            _rb.velocity = _direction * _speed;
         }
-        _timer++;
     }
 
-/*
     public void SetDirection(Vector3 newDirection)
     {
         this._direction = newDirection.normalized;
+        Debug.Log("direction calculada" + newDirection);
     }
 
     private void OnEnable()
@@ -63,7 +61,7 @@ public class PlayerBulletBehavior : MonoBehaviour
 
         PlayerBulletPool.Instance.ReturnBullet(gameObject);
     }
-    */
+    
     private void OnTriggerEnter2D(Collider2D other){
         String _tag = other.gameObject.tag;
         if (_tag != "Player" && _tag != "EnemyBullet"){

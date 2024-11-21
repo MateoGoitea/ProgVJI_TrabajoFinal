@@ -48,6 +48,8 @@ public class PlayerBulletPool : MonoBehaviour
             _bulletList.Add(_newBullet); //a�adir las balas a la lista
             _newBullet.transform.parent = transform;
 
+            _newBullet.transform.parent = transform;
+
         }
     }
 
@@ -65,8 +67,10 @@ public class PlayerBulletPool : MonoBehaviour
                 return bullet;
             }
         }
+
         //si no hay balas disponibles entonces las a�ade
-        GameObject newBullet = Instantiate(_bullet, newPosition, newRotation);
+        GameObject newBullet = Instantiate(_bullet, newPosition,newRotation);
+
         newBullet.SetActive(true);
         _bulletList.Add(newBullet);
         newBullet.transform.parent = transform;
@@ -74,11 +78,10 @@ public class PlayerBulletPool : MonoBehaviour
 
         return newBullet;
     }
-    /*
-    //parece que el método no está recibiendo el gameObject
+
     public void ReturnBullet(GameObject bullet) //metodo para debolver la bala al pool
     {
-        _bullet.SetActive(false);
+        bullet.SetActive(false);
     }
-    */
+
 }

@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class ShootCommand : ICommand
 {
-    private Transform _weaponPosition;
-    private Ray _shootingLine;
-    private bool _input;
+    private Transform _weaponPosition;// pa la posici�n del arma desde donde se dispara el rayo
+    private bool _input; //pa  el click del mouse
+    private Camera _camera; //se bugeaba si le ponia directo la main camera
 
     public ShootCommand(Transform weaponPosition)
     {
         _weaponPosition = weaponPosition;
+        _camera = Camera.main; //de esta manera la direccion de las balas ya no se interpolan con el seguimiento del player
     }
 
     public void Execute()
@@ -28,33 +29,27 @@ public class ShootCommand : ICommand
     {
         if (_weaponPosition == null) return; //retornar si no se asigno el arma  
 
-        //!!!!!
-        //simplemente creo la bala con la misma posicion y rotacion del weapon, la cual siempre estara apuntando hacia el mouse
-        //me gustaria saber q ventajas tiene todo lo de abajo, pq esta bastante bueno para optimizar cosas
-        //pero no me funcionaba el raycast, no entraba al resto del codigo
-        GameObject bullet = PlayerBulletPool.Instance.GetBullet(_weaponPosition.position,_weaponPosition.rotation);
+        Debug.Log("esta disparando");
+
+        //pa que el rayo sea desde la posicion de la camara y la profundidad del arma hacia el cursor
+        Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _weaponPosition.position.z));
+
+        //pa que sea 1 de eje z
+        Vector3 direction = (mouseWorldPosition - _weaponPosition.position).normalized;
+
+        Ray shootingLine = new Ray(_weaponPosition.position, direction);//pa que el orgen del rayo sea la posicion del arma y la direccion hacia el cursor
+
+        //pa dibujar el rayo
+        Debug.DrawRay(shootingLine.origin, shootingLine.direction * 100f, Color.red); //ta piolaaa puede verse namas en la ventana de scene
 
 
-        //pa que el rayo sea desde la camara hacia el cursor
-        /*_shootingLine = Camera.main.ScreenPointToRay(Input.mousePosition); 
-         
-        if(Physics.Raycast(_shootingLine, out RaycastHit hit))
+        if (PlayerBulletPool.Instance != null) //asegurarse de que exista la instancia de bullet pool
         {
-            Debug.Log("true");
-            Vector3 targetPosition = hit.point; //punto donde golpea el rayo
-             
-            Vector3 direction = (targetPosition - _weaponPosition.position).normalized; //direccion desde la posicion del arma
+            //obtener la bala del pool
+            GameObject bullet = PlayerBulletPool.Instance.GetBullet(_weaponPosition.position,Quaternion.LookRotation(shootingLine.direction)); //si le pongo la var direccion no muestra las balas ns xq
 
-            if (PlayerBulletPool.Instance != null) //asegurarse de que exista la instancia de bullet pool
-            {
-                
-                //obtener la bala del pool
-                GameObject bullet = PlayerBulletPool.Instance.GetBullet(_weaponPosition.position,Quaternion.LookRotation(direction));
-
-                //pasar la direccion a la bala
-                bullet.GetComponent<PlayerBulletBehavior>().SetDirection(direction);
-            }
-        }
-        */
+             //pasar la direccion a la bala
+             bullet.GetComponent<PlayerBulletBehavior>().SetDirection(direction);
+        }  
     }
 }

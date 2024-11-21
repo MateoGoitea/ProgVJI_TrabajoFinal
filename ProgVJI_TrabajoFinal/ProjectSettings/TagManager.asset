@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - BasePlayer
+  - Weapon
   - PlayerBullet
   - EnemyBullet
   - BaseEnemy
