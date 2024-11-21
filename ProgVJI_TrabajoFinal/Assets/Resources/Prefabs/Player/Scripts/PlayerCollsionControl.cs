@@ -16,7 +16,7 @@ public class PlayerCollsionControl : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy")){
             UIPlayerController.Instance.DecreaseHealth(2);
         }
-        if (other.gameObject.CompareTag("EnemyBase")){
+        if (other.gameObject.CompareTag("BaseEnemy")){
             UIPlayerController.Instance.DecreaseHealth(5);
         }
     }

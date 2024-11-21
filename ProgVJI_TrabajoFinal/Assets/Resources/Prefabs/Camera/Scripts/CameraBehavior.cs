@@ -7,7 +7,7 @@ public class CameraBehavior : MonoBehaviour
     private Vector3 _initialPosition; //la utilizare para que si el player muere vuelva a la pos inicial
     private float _speedTransition; //velicidad pa una transicion suave
 
-    private PlayerMovement _player;
+    private GameObject _player;
     private Vector3 _offset;  
 
     private void Start()
@@ -15,14 +15,14 @@ public class CameraBehavior : MonoBehaviour
         _initialPosition = transform.position;
         _speedTransition = 0.5f;
 
-        _player = FindObjectOfType<PlayerMovement>();
+        _player = GameObject.FindGameObjectWithTag("Player");
         _offset = new Vector3 (0,0,-10);
     }
 
 
     private void LateUpdate()
     {
-        if (_player == null) _player = FindObjectOfType<PlayerMovement>();//pa que busque al player cuando reaparesca si se murio
+        if (_player == null) _player = GameObject.FindGameObjectWithTag("Player");//pa que busque al player cuando reaparesca si se murio
 
 
         if (_player != null) //si existe el player entonces mueve la camara
