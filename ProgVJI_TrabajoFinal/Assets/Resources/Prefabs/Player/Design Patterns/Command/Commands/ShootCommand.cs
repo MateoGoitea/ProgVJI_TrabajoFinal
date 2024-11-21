@@ -29,8 +29,6 @@ public class ShootCommand : ICommand
     {
         if (_weaponPosition == null) return; //retornar si no se asigno el arma  
 
-        Debug.Log("esta disparando");
-
         //pa que el rayo sea desde la posicion de la camara y la profundidad del arma hacia el cursor
         Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _weaponPosition.position.z));
 

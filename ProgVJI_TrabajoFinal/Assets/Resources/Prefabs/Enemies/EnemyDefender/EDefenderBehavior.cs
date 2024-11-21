@@ -8,6 +8,7 @@ public class EDefenderBehavior : MonoBehaviour
     private Vector3 _lookPosition;//direccion a la que mira el enemigo
      private float _playerMaxDistance;//maxima distancia a la que detectara al jugador
     private bool _shooting;//controlador si el enemigo dispara o no
+
     void Start()
     {
         //_player= Resources.Load<GameObject>(Player/player);// activar cuando exista un prefab del player
@@ -19,7 +20,7 @@ public class EDefenderBehavior : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
         EnemyLooking();
     }
 
@@ -57,4 +58,5 @@ public class EDefenderBehavior : MonoBehaviour
         yield return null;    
         }
     }
+    
 }
