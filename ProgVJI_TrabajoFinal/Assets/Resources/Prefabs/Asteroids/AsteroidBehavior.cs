@@ -18,6 +18,7 @@ public class AsteroidBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.CompareTag("PlayerBullet")){
             Instantiate(_mineral,transform.position,transform.rotation);
+            Destroy(gameObject);
             //devolver al pool
         }
     }
