@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 455946268}
   - component: {fileID: 455946267}
   m_Layer: 5
-  m_Name: PlayerHealth
+  m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 994332871}
   - component: {fileID: 994332870}
   m_Layer: 5
-  m_Name: UIPlayer
+  m_Name: HudPLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1452,7 +1452,7 @@ GameObject:
   - component: {fileID: 1895557725}
   - component: {fileID: 1895557724}
   m_Layer: 5
-  m_Name: Background
+  m_Name: BarHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -29,7 +29,13 @@ public class Generator : MonoBehaviour
     }
 
     public void GeneratePlayerBase(){
-        
+        /*
+        //genera una posicion aleatoria entre los limites del mapa
+            _posX=Random.Range(_limit1.transform.position.x-20,_limit2.transform.position.x+20);
+            _posY=Random.Range(_limit3.transform.position.y+20,_limit4.transform.position.y-20);
+            //crea la base enemiga en esa posicion
+            Instantiate(basePlayer);
+        */
     }
 
     public void GenerateEnemyBases(){
