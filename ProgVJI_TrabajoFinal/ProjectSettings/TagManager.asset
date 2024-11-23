@@ -15,7 +15,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - TileMap
   - Water
   - UI
   - 
@@ -42,8 +42,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - MiniMap
+  - MiniMapFog
   m_SortingLayers:
   - name: Default
     uniqueID: 0
