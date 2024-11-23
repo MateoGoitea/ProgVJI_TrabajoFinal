@@ -62,7 +62,7 @@ public class PlayerBulletBehavior : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other){
         String _tag = other.gameObject.tag;
-        if (_tag != "Player" && _tag != "EnemyBullet"){
+        if (_tag != "Player" && _tag != "EnemyBullet" && _tag != "Limit"){
             gameObject.SetActive(false);
         }      
     }

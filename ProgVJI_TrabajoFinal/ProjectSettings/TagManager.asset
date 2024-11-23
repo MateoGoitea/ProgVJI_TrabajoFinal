@@ -10,6 +10,7 @@ TagManager:
   - EnemyBullet
   - BaseEnemy
   - Enemy
+  - Limit
   layers:
   - Default
   - TransparentFX

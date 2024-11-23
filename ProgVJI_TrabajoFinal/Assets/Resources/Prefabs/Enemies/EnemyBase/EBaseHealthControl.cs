@@ -11,7 +11,7 @@ public class EBaseHealthControl : MonoBehaviour
 
     void Start()
     {
-        _baseHealthMax = 200;
+        _baseHealthMax = 100;
         _baseHealth = _baseHealthMax;
     }
 
