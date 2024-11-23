@@ -17,7 +17,7 @@ public class PlayerBulletBehavior : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _lifeTime = 5f;
-        _speed = 20f;
+        _speed = 5f;
         _damage = 1f;
 
     }
@@ -28,7 +28,7 @@ public class PlayerBulletBehavior : MonoBehaviour
 
         if (_rb != null && _direction != Vector3.zero) 
         {
-            _rb.velocity = _direction * _speed;
+            _rb.MovePosition( transform.position + _direction * _speed);
         }
     }
 
