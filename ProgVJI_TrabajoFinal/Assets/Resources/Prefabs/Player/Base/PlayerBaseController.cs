@@ -11,8 +11,8 @@ public class PlayerBaseController : MonoBehaviour
     private float _MaxHealth = 100f;
     private float _MaxDefense = 100f;
 
-    private float _currentHealth = 0;
-    private float _currentDefense = 0;
+    private float _currentHealth;
+    private float _currentDefense;
 
 
     private void Start()
@@ -27,8 +27,8 @@ public class PlayerBaseController : MonoBehaviour
             return;
         }
 
-        _currentDefense = Mathf.Clamp(_currentDefense + _MaxDefense, 0, _MaxDefense);
-        _currentHealth = Mathf.Clamp(_currentHealth + _MaxHealth, 0, _MaxHealth);
+        _currentHealth = _MaxHealth;
+        _currentDefense = _MaxDefense;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -36,6 +36,7 @@ public class PlayerBaseController : MonoBehaviour
         if (collision.gameObject.CompareTag("EnemyBullet"))
         {
             _currentDefense -= 1f;
+
             UpdateDefense();
             FallOfShields();
         }
@@ -47,20 +48,12 @@ public class PlayerBaseController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             _currentDefense -= 0.1f;
+
             UpdateDefense();
             FallOfShields();
 
-            //HUDPlayerController.Instance.BaseUnderAttack(true); //activa la img de alerta del hud
         }
     }
-
-    /*public void OnCollisionExit2D(Collision2D collision) //cuando los enemigos salgan de la base
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            HUDPlayerController.Instance.BaseUnderAttack(false);//desactiva la alerta de ataque
-        }
-    }*/
 
     private void FallOfShields() //pa cuandso se acabe las defensas
     {

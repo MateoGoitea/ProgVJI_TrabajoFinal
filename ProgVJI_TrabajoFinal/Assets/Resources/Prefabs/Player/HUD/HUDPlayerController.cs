@@ -6,15 +6,16 @@ using UnityEngine;
 public class HUDPlayerController : MonoBehaviour
 {
     //private GameObject _baseUnderAttack;//se activara como una alerta de que estan atacando la base
+    private GameObject _player;
 
     private Image _health;//estas se reduciran/aumentaran dependiendo el daño/recuperacion
     private Image _defense;
 
-    private float _MaxHealth = 100f;
-    private float _MaxDefense = 100f;
+    private float _MaxHealth;
+    private float _MaxDefense;
 
-    private float _currentHealth = 0;
-    private float _currentDefense = 0;
+    private float _currentHealth;
+    private float _currentDefense;
 
 
     public static HUDPlayerController Instance { get; private set;  }
@@ -32,9 +33,32 @@ public class HUDPlayerController : MonoBehaviour
     }
     private void Start()
     {
-        //como son hijos del Hud controller los busca por el nombre (podria mejorarse)
+        _player = GameObject.FindGameObjectWithTag("Player");
 
-        //_baseUnderAttack = GameObject.Find("AlertAttackBase").GetComponentInChildren<GameObject>();
+        ResetHUD();
+    }
+
+    public void Update()
+    {
+        if (_player == null) //buscar al player si muere
+        {
+            _player = GameObject.FindGameObjectWithTag("Player");
+
+            if (_player != null)
+            {
+                ResetHUD(); // Reiniciar el HUD Cuando lo encuentra
+            }
+        }
+    }
+
+
+    private void ResetHUD()//de este modo si el player muere se resetea el hud
+    {
+        _MaxHealth = 100f;
+        _MaxDefense = 100f;
+
+        _currentHealth = _MaxHealth;
+        _currentDefense = _MaxDefense;
 
         _health = transform.Find("BarHealth/Fill").GetComponentInChildren<Image>();
         _defense = transform.Find("BarDefense/Fill").GetComponentInChildren<Image>();
@@ -46,9 +70,10 @@ public class HUDPlayerController : MonoBehaviour
             return;
         }
 
-        _currentDefense = Mathf.Clamp(_currentDefense + _MaxDefense, 0,_MaxDefense); 
-        _currentHealth = Mathf.Clamp(_currentHealth + _MaxHealth, 0, _MaxHealth);
+        UpdateHealth();
+        UpdateDefense();
     }
+
 
     //namas recibirian positivos pa aumentar o negativos disminuir
     public void ChangeHealth(float amount)
@@ -90,10 +115,4 @@ public class HUDPlayerController : MonoBehaviour
 
     }
 
-    /*public void BaseUnderAttack(bool underAttack)
-    {
-
-        _baseUnderAttack.SetActive(underAttack);//activara o desactivara la imagen
-        
-    }*/
 }

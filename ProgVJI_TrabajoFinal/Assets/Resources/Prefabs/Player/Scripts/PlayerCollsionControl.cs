@@ -4,25 +4,63 @@ using UnityEngine;
 
 public class PlayerCollsionControl : MonoBehaviour
 {
-  
+    private float _controlHealth;
+    private float _controlDefense;
+
+    private void Start()
+    {
+        ResetControlDamage();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             float _damage = other.gameObject.GetComponent<EnemyBulletBehavior>().Damage;
             HUDPlayerController.Instance.ChangeDefense(-_damage);
+            _controlDefense -= _damage;
+
+            ControlDestroy(_damage);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)//negativos para restar en el hud del player
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))//si los enemigos lo alcanzan pierde vida
         {
-            HUDPlayerController.Instance.ChangeDefense(-2);
+            HUDPlayerController.Instance.ChangeHealth(-2f);
         }
         if (other.gameObject.CompareTag("BaseEnemy"))
         {
-            HUDPlayerController.Instance.ChangeDefense(-5);
+            HUDPlayerController.Instance.ChangeDefense(-5f);
         }
+
+    }
+
+    private void ControlDestroy(float damage)
+    {
+        if (_controlDefense <= 0f)
+        {
+            HUDPlayerController.Instance.ChangeHealth(-damage);
+            _controlHealth -= damage;
+            
+            if (_controlHealth <= 0f)
+            {
+                Destroy(gameObject);
+                ResetControlDamage();
+            }
+        }
+
+        
+    }
+
+    private void ResetControlDamage()
+    {
+        _controlHealth = 100f;
+        _controlDefense = 100f;
+
+        // Sincronizar con el HUD
+        HUDPlayerController.Instance.ChangeHealth(100f - _controlHealth);
+        HUDPlayerController.Instance.ChangeDefense(100f - _controlDefense);
     }
 }
