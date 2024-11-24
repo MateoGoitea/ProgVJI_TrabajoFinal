@@ -11,8 +11,8 @@ public class PlayerBaseController : MonoBehaviour
     private float _MaxHealth = 100f;
     private float _MaxDefense = 100f;
 
-    private float _currentHealth;
-    private float _currentDefense;
+    private float _currentHealth = 0;
+    private float _currentDefense = 0;
 
 
     private void Start()
@@ -27,23 +27,50 @@ public class PlayerBaseController : MonoBehaviour
             return;
         }
 
-        _currentDefense = _MaxHealth;
-        _currentHealth = _MaxDefense;
+        _currentDefense = Mathf.Clamp(_currentDefense + _MaxDefense, 0, _MaxDefense);
+        _currentHealth = Mathf.Clamp(_currentHealth + _MaxHealth, 0, _MaxHealth);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("EnemyBullet"))
         {
             _currentDefense -= 1f;
             UpdateDefense();
+            FallOfShields();
         }
-        if (_currentDefense == 0)
+        
+    }
+
+    public void OnCollisionStay2D(Collision2D collision) //si los enemy llegan a la base y se mantienen ahi
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            _currentHealth -= 2f;
+            _currentDefense -= 0.1f;
+            UpdateDefense();
+            FallOfShields();
+
+            //HUDPlayerController.Instance.BaseUnderAttack(true); //activa la img de alerta del hud
+        }
+    }
+
+    /*public void OnCollisionExit2D(Collision2D collision) //cuando los enemigos salgan de la base
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            HUDPlayerController.Instance.BaseUnderAttack(false);//desactiva la alerta de ataque
+        }
+    }*/
+
+    private void FallOfShields() //pa cuandso se acabe las defensas
+    {
+        if (_currentDefense <= 0)
+        {
+            _currentHealth -= 0.1f;
             UpdateHealth();
         }
     }
+
 
     private void UpdateHealth()
     {
