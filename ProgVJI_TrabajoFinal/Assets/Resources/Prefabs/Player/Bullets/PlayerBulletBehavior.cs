@@ -44,8 +44,7 @@ public class PlayerBulletBehavior : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnCollisionEnter2D(Collision2D collision) { 
         //cancelar la invocacion si es que el game object colisiona
         CancelInvoke(nameof(ReturnToPool));
 
@@ -60,12 +59,15 @@ public class PlayerBulletBehavior : MonoBehaviour
         PlayerBulletPool.Instance.ReturnBullet(gameObject);
     }
     
-    private void OnTriggerEnter2D(Collider2D other){
+    /*private void OnTriggerEnter2D(Collider2D other){ 
+
         String _tag = other.gameObject.tag;
+
         if (_tag != "Player" && _tag != "EnemyBullet" && _tag != "Limit"){
-            gameObject.SetActive(false);
+
+            ReturnToPool();
         }      
-    }
+    }*/
 
     public float Damage { get => _damage; set => _damage = value; }
 }

@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class HUDPlayerController : MonoBehaviour
 {
+    //private GameObject _baseUnderAttack;//se activara como una alerta de que estan atacando la base
+
     private Image _health;//estas se reduciran/aumentaran dependiendo el daño/recuperacion
     private Image _defense;
 
     private float _MaxHealth = 100f;
     private float _MaxDefense = 100f;
 
-    private float _currentHealth;
-    private float _currentDefense;
+    private float _currentHealth = 0;
+    private float _currentDefense = 0;
 
 
     public static HUDPlayerController Instance { get; private set;  }
@@ -30,9 +32,13 @@ public class HUDPlayerController : MonoBehaviour
     }
     private void Start()
     {
-        //como ambos son hijos del Hud controller los busca por el nombre (podria mejorarse)
-        _health = transform.Find("HudPlayer/BarHealth/Fill").GetComponentInChildren<Image>();
-        _defense = transform.Find("HudPlayer/BarDefense/Fill").GetComponentInChildren<Image>();
+        //como son hijos del Hud controller los busca por el nombre (podria mejorarse)
+
+        //_baseUnderAttack = GameObject.Find("AlertAttackBase").GetComponentInChildren<GameObject>();
+
+        _health = transform.Find("BarHealth/Fill").GetComponentInChildren<Image>();
+        _defense = transform.Find("BarDefense/Fill").GetComponentInChildren<Image>();
+
 
         if (_health == null || _defense == null)//por si los nombres estan mal
         {
@@ -40,8 +46,8 @@ public class HUDPlayerController : MonoBehaviour
             return;
         }
 
-        _currentDefense = _MaxHealth;
-        _currentHealth = _MaxDefense;
+        _currentDefense = Mathf.Clamp(_currentDefense + _MaxDefense, 0,_MaxDefense); 
+        _currentHealth = Mathf.Clamp(_currentHealth + _MaxHealth, 0, _MaxHealth);
     }
 
     //namas recibirian positivos pa aumentar o negativos disminuir
@@ -52,7 +58,7 @@ public class HUDPlayerController : MonoBehaviour
         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _MaxHealth);
         UpdateHealth();
     }
-    public void ChangeDefence(float amount)
+    public void ChangeDefense(float amount)
     {
         if (amount == 0) return; //por si acaso
 
@@ -83,4 +89,11 @@ public class HUDPlayerController : MonoBehaviour
         _defense.rectTransform.sizeDelta = new Vector2(WidthDefense, _defense.rectTransform.sizeDelta.y);//de este modo no se afecta a la altura de la img
 
     }
+
+    /*public void BaseUnderAttack(bool underAttack)
+    {
+
+        _baseUnderAttack.SetActive(underAttack);//activara o desactivara la imagen
+        
+    }*/
 }
