@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _player = new Player();
+        //Destroy(gameObject,3f); //se utilizo para probar spawn del player
     }
 
     private void SetMovementStrategy(IMovementStrategy _movement)

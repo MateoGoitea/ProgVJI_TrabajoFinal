@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6499503068097891063}
   - component: {fileID: 1657472438272881574}
   m_Layer: 0
-  m_Name: PlayerConteiner
+  m_Name: PlayerContainer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4892812258245706602}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

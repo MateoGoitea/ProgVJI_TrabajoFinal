@@ -10,7 +10,7 @@ public class PlayerCollsionControl : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             float _damage = other.gameObject.GetComponent<EnemyBulletBehavior>().Damage;
-            HUDPlayerController.Instance.ChangeHealth(-_damage);
+            HUDPlayerController.Instance.ChangeDefense(-_damage);
         }
     }
 
@@ -18,11 +18,11 @@ public class PlayerCollsionControl : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            HUDPlayerController.Instance.ChangeHealth(-2);
+            HUDPlayerController.Instance.ChangeDefense(-2);
         }
         if (other.gameObject.CompareTag("BaseEnemy"))
         {
-            HUDPlayerController.Instance.ChangeHealth(-5);
+            HUDPlayerController.Instance.ChangeDefense(-5);
         }
     }
 }
