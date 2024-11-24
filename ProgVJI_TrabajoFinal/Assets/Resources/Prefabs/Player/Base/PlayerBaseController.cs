@@ -11,8 +11,8 @@ public class PlayerBaseController : MonoBehaviour
     private float _MaxHealth = 100f;
     private float _MaxDefense = 100f;
 
-    private float _currentHealth = 0;
-    private float _currentDefense = 0;
+    private float _currentHealth;
+    private float _currentDefense;
 
 
     private void Start()
@@ -27,15 +27,18 @@ public class PlayerBaseController : MonoBehaviour
             return;
         }
 
-        _currentDefense = Mathf.Clamp(_currentDefense + _MaxDefense, 0, _MaxDefense);
-        _currentHealth = Mathf.Clamp(_currentHealth + _MaxHealth, 0, _MaxHealth);
+        _currentHealth = _MaxHealth;
+        _currentDefense = _MaxDefense;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        if (other.gameObject.CompareTag("EnemyBullet"))
         {
-            _currentDefense -= 1f;
+            float _damage = other.gameObject.GetComponent<EnemyBulletBehavior>().Damage;
+
+            _currentDefense -= _damage;
+
             UpdateDefense();
             FallOfShields();
         }
@@ -47,33 +50,32 @@ public class PlayerBaseController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             _currentDefense -= 0.1f;
+
             UpdateDefense();
             FallOfShields();
 
-            //HUDPlayerController.Instance.BaseUnderAttack(true); //activa la img de alerta del hud
         }
     }
 
-    /*public void OnCollisionExit2D(Collision2D collision) //cuando los enemigos salgan de la base
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            HUDPlayerController.Instance.BaseUnderAttack(false);//desactiva la alerta de ataque
-        }
-    }*/
-
     private void FallOfShields() //pa cuandso se acabe las defensas
     {
-        if (_currentDefense <= 0)
+        if (_currentDefense <= 0f)
         {
             _currentHealth -= 0.1f;
             UpdateHealth();
+
+            if (_currentHealth <= 0f)//se destruye al acabarse la vida
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
 
     private void UpdateHealth()
     {
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _MaxHealth);
+
         float newHealth = _currentHealth / _MaxHealth;
 
         float maxHealth = _health.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
@@ -86,7 +88,9 @@ public class PlayerBaseController : MonoBehaviour
 
     private void UpdateDefense()
     {
-        float newDefense = _currentDefense / _MaxDefense; //
+        _currentDefense = Mathf.Clamp(_currentDefense, 0, _MaxDefense);
+
+        float newDefense = _currentDefense / _MaxDefense;
 
         float maxDefense = _defense.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
 

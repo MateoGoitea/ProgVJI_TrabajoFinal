@@ -4,25 +4,66 @@ using UnityEngine;
 
 public class PlayerCollsionControl : MonoBehaviour
 {
-  
-    private void OnTriggerEnter2D(Collider2D other)
+    private float _controlHealth;
+    private float _controlDefense;
+
+    private void Start()
+    {
+        ResetControlDamage();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)//negativos para restar en el hud del player
     {
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             float _damage = other.gameObject.GetComponent<EnemyBulletBehavior>().Damage;
             HUDPlayerController.Instance.ChangeDefense(-_damage);
+            _controlDefense -= _damage;
+
+            ControlDestroy(_damage);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)//negativos para restar en el hud del player
+
+    //seia algo parecido al anterior solo que el daño dependeria del tipo de enemigo
+
+/*   private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("BaseEnemy"))
         {
-            HUDPlayerController.Instance.ChangeDefense(-2);
+            float _damage = other.gameObject.GetComponent<EDefenderBehavior>().Damage;
+            HUDPlayerController.Instance.ChangeDefense(-_damage);
+            _controlDefense -= _damage;
+
+            ControlDestroy(_damage);
         }
-        if (other.gameObject.CompareTag("BaseEnemy"))
+
+    }
+*/
+    private void ControlDestroy(float damage)
+    {
+        if (_controlDefense <= 0f)
         {
-            HUDPlayerController.Instance.ChangeDefense(-5);
+            HUDPlayerController.Instance.ChangeHealth(-damage);
+            _controlHealth -= damage;
+            
+            if (_controlHealth <= 0f)
+            {
+                Destroy(gameObject);
+                ResetControlDamage();
+            }
         }
+
+        
+    }
+
+    private void ResetControlDamage()
+    {
+        _controlHealth = 100f;
+        _controlDefense = 100f;
+
+        // Sincronizar con el HUD
+        HUDPlayerController.Instance.ChangeHealth(100f - _controlHealth);
+        HUDPlayerController.Instance.ChangeDefense(100f - _controlDefense);
     }
 }
