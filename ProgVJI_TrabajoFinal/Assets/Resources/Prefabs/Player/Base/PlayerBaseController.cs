@@ -1,29 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBaseController : MonoBehaviour
 {
-    private int _health;
-    private int _defence;
-    
+    private Image _health;//estas se reduciran/aumentaran dependiendo el daño/recuperacion
+    private Image _defense;
+
+    private float _MaxHealth = 100f;
+    private float _MaxDefense = 100f;
+
+    private float _currentHealth;
+    private float _currentDefense;
+
+
     private void Start()
     {
-        _health = 100;
-        _defence = 100;
+        //como ambos son hijos del canvas los busca por el nombre (podria mejorarse)
+        _health = transform.Find("HudBaseP/BarHealth/Fill").GetComponentInChildren<Image>();
+        _defense = transform.Find("HudBaseP/BarDefense/Fill").GetComponentInChildren<Image>();
+
+        if (_health == null || _defense == null)//por si los nombres estan mal
+        {
+            Debug.LogError("revisar el nombre de la barra de vida y defensa");
+            return;
+        }
+
+        _currentDefense = _MaxHealth;
+        _currentHealth = _MaxDefense;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)//de momento probemos que onda con la consola
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        if (collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy"))
         {
-            _defence -= 1;
-            Debug.Log("La base esta siendo atacada!! Defensa al %" + _defence);
+            _currentDefense -= 1f;
+            UpdateDefense();
         }
-        if (_defence == 0)
+        if (_currentDefense == 0)
         {
-            _health -= 1;
-            Debug.Log("Cayeron los escudos!! La base esta en peligro!! Vida al %" + _health);
+            _currentHealth -= 2f;
+            UpdateHealth();
         }
     }
+
+    private void UpdateHealth()
+    {
+        float newHealth = _currentHealth / _MaxHealth;
+
+        float maxHealth = _health.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
+
+        float WidthHealth = newHealth * maxHealth; // para el ancho actualizado de la imagen
+
+        _health.rectTransform.sizeDelta = new Vector2(WidthHealth, _health.rectTransform.sizeDelta.y);//de este modo no se afecta a la altura de la img
+
+    }
+
+    private void UpdateDefense()
+    {
+        float newDefense = _currentDefense / _MaxDefense; //
+
+        float maxDefense = _defense.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
+
+        float WidthDefense = newDefense * maxDefense; // para el ancho actualizado de la imagen
+
+        _defense.rectTransform.sizeDelta = new Vector2(WidthDefense, _defense.rectTransform.sizeDelta.y);//de este modo no se afecta a la altura de la img
+
+    }
+
 }

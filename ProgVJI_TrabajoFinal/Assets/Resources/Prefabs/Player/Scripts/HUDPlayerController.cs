@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class HUDPlayerController : MonoBehaviour
 {
+    private Image _baseUnderAttack;//se activara como una alerta de que estan atacando la base
+
     private Image _health;//estas se reduciran/aumentaran dependiendo el daño/recuperacion
     private Image _defense;
 
@@ -31,8 +33,8 @@ public class HUDPlayerController : MonoBehaviour
     private void Start()
     {
         //como ambos son hijos del Hud controller los busca por el nombre (podria mejorarse)
-        _health = transform.Find("HudPlayer/BarHealth/Fill").GetComponentInChildren<Image>();
-        _defense = transform.Find("HudPlayer/BarDefense/Fill").GetComponentInChildren<Image>();
+        _health = transform.Find("BarHealth/Fill").GetComponentInChildren<Image>();
+        _defense = transform.Find("BarDefense/Fill").GetComponentInChildren<Image>();
 
         if (_health == null || _defense == null)//por si los nombres estan mal
         {
@@ -52,7 +54,7 @@ public class HUDPlayerController : MonoBehaviour
         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _MaxHealth);
         UpdateHealth();
     }
-    public void ChangeDefence(float amount)
+    public void ChangeDefense(float amount)
     {
         if (amount == 0) return; //por si acaso
 
