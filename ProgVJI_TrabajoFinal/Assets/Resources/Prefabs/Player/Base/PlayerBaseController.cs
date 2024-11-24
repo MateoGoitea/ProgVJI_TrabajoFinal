@@ -31,11 +31,13 @@ public class PlayerBaseController : MonoBehaviour
         _currentDefense = _MaxDefense;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        if (other.gameObject.CompareTag("EnemyBullet"))
         {
-            _currentDefense -= 1f;
+            float _damage = other.gameObject.GetComponent<EnemyBulletBehavior>().Damage;
+
+            _currentDefense -= _damage;
 
             UpdateDefense();
             FallOfShields();
@@ -57,16 +59,23 @@ public class PlayerBaseController : MonoBehaviour
 
     private void FallOfShields() //pa cuandso se acabe las defensas
     {
-        if (_currentDefense <= 0)
+        if (_currentDefense <= 0f)
         {
             _currentHealth -= 0.1f;
             UpdateHealth();
+
+            if (_currentHealth <= 0f)//se destruye al acabarse la vida
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
 
     private void UpdateHealth()
     {
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _MaxHealth);
+
         float newHealth = _currentHealth / _MaxHealth;
 
         float maxHealth = _health.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
@@ -79,7 +88,9 @@ public class PlayerBaseController : MonoBehaviour
 
     private void UpdateDefense()
     {
-        float newDefense = _currentDefense / _MaxDefense; //
+        _currentDefense = Mathf.Clamp(_currentDefense, 0, _MaxDefense);
+
+        float newDefense = _currentDefense / _MaxDefense;
 
         float maxDefense = _defense.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
 

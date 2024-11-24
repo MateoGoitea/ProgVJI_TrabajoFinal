@@ -12,7 +12,7 @@ public class PlayerCollsionControl : MonoBehaviour
         ResetControlDamage();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)//negativos para restar en el hud del player
     {
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
@@ -24,19 +24,22 @@ public class PlayerCollsionControl : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)//negativos para restar en el hud del player
+
+    //seia algo parecido al anterior solo que el daño dependeria del tipo de enemigo
+
+/*   private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))//si los enemigos lo alcanzan pierde vida
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("BaseEnemy"))
         {
-            HUDPlayerController.Instance.ChangeHealth(-2f);
-        }
-        if (other.gameObject.CompareTag("BaseEnemy"))
-        {
-            HUDPlayerController.Instance.ChangeDefense(-5f);
+            float _damage = other.gameObject.GetComponent<EDefenderBehavior>().Damage;
+            HUDPlayerController.Instance.ChangeDefense(-_damage);
+            _controlDefense -= _damage;
+
+            ControlDestroy(_damage);
         }
 
     }
-
+*/
     private void ControlDestroy(float damage)
     {
         if (_controlDefense <= 0f)

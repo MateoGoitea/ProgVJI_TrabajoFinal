@@ -105,7 +105,7 @@ public class HUDPlayerController : MonoBehaviour
     }
     private void UpdateDefense()
     {
-        float newDefense = _currentDefense / _MaxDefense; //
+        float newDefense = _currentDefense / _MaxDefense;
 
         float maxDefense = _defense.rectTransform.parent.GetComponent<RectTransform>().sizeDelta.x;//pa obtener el ancho del emply obj padre
 
