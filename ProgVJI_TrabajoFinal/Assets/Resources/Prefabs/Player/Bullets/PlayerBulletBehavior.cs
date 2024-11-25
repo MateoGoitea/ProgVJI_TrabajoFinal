@@ -59,7 +59,7 @@ public class PlayerBulletBehavior : MonoBehaviour
         PlayerBulletPool.Instance.ReturnBullet(gameObject);
     }
     
-    /*private void OnTriggerEnter2D(Collider2D other){ 
+    private void OnTriggerEnter2D(Collider2D other){ 
 
         String _tag = other.gameObject.tag;
 
@@ -67,7 +67,7 @@ public class PlayerBulletBehavior : MonoBehaviour
 
             ReturnToPool();
         }      
-    }*/
+    }
 
     public float Damage { get => _damage; set => _damage = value; }
 }
