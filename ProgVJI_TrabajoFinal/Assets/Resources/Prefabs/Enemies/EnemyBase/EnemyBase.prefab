@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 1642212713658374141}
   - component: {fileID: 4292643830203782915}
   - component: {fileID: 5227602094766448765}
+  - component: {fileID: -129871551958176610}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: BaseEnemy
@@ -451,3 +452,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0.00000078624686, y: 0.0965235}
   m_Size: {x: 0.72278434, y: 0.48148236}
   m_Direction: 1
+--- !u!208 &-129871551958176610
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7351528734491332668}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.4, y: 0.4, z: 0.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

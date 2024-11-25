@@ -13,7 +13,6 @@ public class ETrackerBehavior : MonoBehaviour
     private bool _shooting;//controlador si el enemigo dispara o no
     void Start()
     {
-        //_player= Resources.Load<GameObject>(Player/player);// activar cuando exista un prefab del player
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         _speed = 5f;
 
