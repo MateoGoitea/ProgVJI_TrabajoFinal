@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerBaseController : MonoBehaviour
 {
-    private Image _health;//estas se reduciran/aumentaran dependiendo el daño/recuperacion
+    private Image _health;//estas se reduciran/aumentaran dependiendo el daï¿½o/recuperacion
     private Image _defense;
 
     private float _MaxHealth = 100f;
@@ -54,6 +54,18 @@ public class PlayerBaseController : MonoBehaviour
             UpdateDefense();
             FallOfShields();
 
+        }
+
+        //si contacta con el player toma la cantidad de minerales agarrados y los suma a la vida
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            float _mineralAmount = MineralCount.Instance.Count;
+
+            _currentHealth += _mineralAmount;
+
+            MineralCount.Instance.Count = 0;//resetea el contador de minerales a 0
+
+            UpdateHealth();
         }
     }
 

@@ -5,6 +5,7 @@ using TMPro;
 public class MineralCount : MonoBehaviour
 {
     private float _count;
+    public float Count { get => _count; set => _count = value; }
     private TextMeshProUGUI _textMesh;
     public static MineralCount Instance { get; private set;  }
 
