@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7077363754330064162}
   - component: {fileID: -8002786945975765799}
   - component: {fileID: 1783190280204390762}
+  - component: {fileID: 2575921192796875155}
   m_Layer: 0
   m_Name: AsterHuge2
   m_TagString: Untagged
@@ -161,3 +162,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0.000000007642683, y: 0.06411148}
   m_Size: {x: 3.0200005, y: 2.2717788}
   m_Direction: 1
+--- !u!208 &2575921192796875155
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525697572991576568}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.5100001, y: 1.2, z: 1.5100001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
