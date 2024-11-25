@@ -57,9 +57,8 @@ public class MainPanel : MonoBehaviour
 
     public void SetMute(){
         //se guarda el ultimo volumen configurado y se verifica si el toggle esta activado o no
-        _mixer.GetFloat("VolMaster",out _lastVolume);
-
         if (_mute.isOn){
+            _mixer.GetFloat("VolMaster",out _lastVolume);
             _mixer.SetFloat("VolMaster",-80);
         }else{
             _mixer.SetFloat("VolMaster",_lastVolume);

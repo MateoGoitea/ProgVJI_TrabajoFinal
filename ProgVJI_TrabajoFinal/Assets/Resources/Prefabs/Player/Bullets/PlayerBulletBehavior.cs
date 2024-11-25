@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerBulletBehavior : MonoBehaviour
 {
@@ -12,10 +13,10 @@ public class PlayerBulletBehavior : MonoBehaviour
     private float _damage;
 
 
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        
         _lifeTime = 5f;
         _speed = 5f;
         _damage = 1f;
