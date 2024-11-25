@@ -23,12 +23,6 @@ public class Generator : MonoBehaviour
         InvokeRepeating("GenerateAsteroids",0f,90f);
     }
 
-    void Update()
-    {
-        
-    }
-
-
     public void GenerateEnemyBases(){
         for (int x=0;x<3;x++){
             //genera una posicion aleatoria entre los limites del mapa

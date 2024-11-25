@@ -18,6 +18,7 @@ public class SpawnEnemies : MonoBehaviour
 
     void Start()
     {
+        //carga y añade los distintos tipos de enemigos
         _enemyTracker= Resources.Load<GameObject>("Prefabs/Enemies/EnemyTracker/EnemyTracker");
         _enemyDefender= Resources.Load<GameObject>("Prefabs/Enemies/EnemyDefender/EnemyDefender");
         _enemyDestructor= Resources.Load<GameObject>("Prefabs/Enemies/EnemyDestructor/EnemyDestructor");
@@ -30,7 +31,7 @@ public class SpawnEnemies : MonoBehaviour
         _minEnemies = 3;
         _maxEnemies = 6;
 
-        InvokeRepeating("GenerateEnemies", 10f, 60f);
+        InvokeRepeating("GenerateEnemies", 10f, 60f);//genera enemigos cada 1 min
     }
 
     public void GenerateEnemies(){

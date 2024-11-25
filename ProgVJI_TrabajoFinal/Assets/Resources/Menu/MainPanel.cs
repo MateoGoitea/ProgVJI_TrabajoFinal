@@ -38,6 +38,7 @@ public class MainPanel : MonoBehaviour
     }
 
     public void OpenPanel(GameObject panel){
+        //desactiva todos los paneles y activa el que recibe
         _mainPanel.SetActive(false);
         _optionsPanel.SetActive(false);
 
@@ -45,14 +46,17 @@ public class MainPanel : MonoBehaviour
     }
 
     public void ChangeVolumeMaster(float vol){
+        //recibe el valor del volumen y se lo aplica al mixer
         _mixer.SetFloat("VolMaster",vol);
     }
 
     public void ChangeVolumeFX(float vol){
+        //recibe el valor del volumen y se lo aplica al mixer
         _mixer.SetFloat("VolFX",vol);
     }
 
     public void SetMute(){
+        //se guarda el ultimo volumen configurado y se verifica si el toggle esta activado o no
         _mixer.GetFloat("VolMaster",out _lastVolume);
 
         if (_mute.isOn){

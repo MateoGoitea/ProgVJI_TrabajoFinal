@@ -17,8 +17,9 @@ public class EBaseHealthControl : MonoBehaviour
 
     void Update()
     {
-        _baseHealthImage.fillAmount = _baseHealth/_baseHealthMax;
+        _baseHealthImage.fillAmount = _baseHealth/_baseHealthMax;//actualizacion de la barra de vida
 
+        //si se queda sin vida se destruye la base
         if (_baseHealth <= 0){
             Destroy(gameObject);
         }

@@ -28,8 +28,9 @@ public class AsteroidsPool : MonoBehaviour
     }
     void Start()
     {
-        _asteroidList = new List<GameObject>();
         
+        _asteroidList = new List<GameObject>();
+        //se cargan y añaden los distintos tipos de asteroides a la lista
         _big1= Resources.Load<GameObject>("Prefabs/Asteroids/Prefabs/AsterBig1");
         _big2= Resources.Load<GameObject>("Prefabs/Asteroids/Prefabs/AsterBig2");
         _huge1= Resources.Load<GameObject>("Prefabs/Asteroids/Prefabs/AsterHuge1");

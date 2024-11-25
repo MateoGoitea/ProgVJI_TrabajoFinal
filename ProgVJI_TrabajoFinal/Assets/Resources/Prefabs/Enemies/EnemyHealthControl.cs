@@ -17,7 +17,9 @@ public class EnemyHealthControl : MonoBehaviour
     }
 
     void Update(){
+        //cuando el enemigo cambia de color lo regresa a su color original
         _enemyRenderer.material.color = Color.Lerp(_enemyRenderer.material.color,Color.white,_lerpTime);
+        //si la vida llega a 0 destruye el enemigo
         if(_health<=0){
           Destroy(gameObject); 
         }
