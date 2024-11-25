@@ -11,7 +11,6 @@ public class EDefenderBehavior : MonoBehaviour
 
     void Start()
     {
-        //_player= Resources.Load<GameObject>(Player/player);// activar cuando exista un prefab del player
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         _playerMaxDistance = 20f;
