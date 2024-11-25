@@ -73,7 +73,7 @@ public class PlayerBaseController : MonoBehaviour
     {
         if (_currentDefense <= 0f)
         {
-            _currentHealth -= 0.1f;
+            _currentHealth -= 0.3f;
             UpdateHealth();
 
             if (_currentHealth <= 0f)//se destruye al acabarse la vida

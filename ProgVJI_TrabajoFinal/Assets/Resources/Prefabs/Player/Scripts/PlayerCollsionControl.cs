@@ -29,15 +29,6 @@ public class PlayerCollsionControl : MonoBehaviour
 
   private void OnCollisionStay2D(Collision2D other)
     {
-        /*if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("BaseEnemy"))
-        {
-            float _damage = other.gameObject.GetComponent<EDefenderBehavior>().Damage;
-            HUDPlayerController.Instance.ChangeDefense(-_damage);
-            _controlDefense -= _damage;
-
-            ControlDestroy(_damage);
-        }*/
-
         if (other.gameObject.CompareTag("BasePlayer")){
             HUDPlayerController.Instance.ChangeHealth(0.1f);
         }
